@@ -7,6 +7,9 @@ from robustness_eval.certified_robust import *
 import pandas as pd
 from torchmetrics import CharErrorRate
 import time
+from diffusion_models.diffwave_sde import *
+from acoustic_system import AcousticSystem
+
 
 t0 = time.time()
 
@@ -32,6 +35,17 @@ parser.add_argument('--defender_path', type=str, help='dir of diffusion model ch
 # parser.add_argument("--dataload_workers_nums", type=int, default=4, help='number of workers for dataloader')
 # parser.add_argument("--batch_size", type=int, default=5, help='batch size')
 parser.add_argument('--gpu', type=int, default=0)
+
+'''DiffWave-VPSDE arguments'''
+parser.add_argument('--ddpm_config', type=str, default=r'C:\Users\kyhne\OneDrive - Aalborg Universitet\Uni\7. semester\P7 - Informationsbehandling i teknologiske systemer\AudioPure-master\diffusion_models\DiffWave_Unconditional\config.json', help='JSON file for configuration')
+parser.add_argument('--ddpm_path', type=str, help='dir vbhfyr of diffusion model checkpoint', default = r'C:\Users\kyhne\OneDrive - Aalborg Universitet\Uni\7. semester\P7 - Informationsbehandling i teknologiske systemer\AudioPure-master\1000000.pkl')
+parser.add_argument('--sample_step', type=int, default=1, help='Total sampling steps')
+parser.add_argument('--t', type=int, default=1, help='diffusion steps, control the sampling noise scale')
+parser.add_argument('--t_delta', type=int, default=0, help='perturbation range of sampling noise scale; set to 0 by default')
+parser.add_argument('--rand_t', action='store_true', default=False, help='decide if randomize sampling noise scale')
+parser.add_argument('--diffusion_type', type=str, default='ddpm', help='[ddpm, sde]')
+parser.add_argument('--score_type', type=str, default='guided_diffusion', help='[guided_diffusion, score_sde, ddpm]')
+parser.add_argument('--use_bm', action='store_true', default=False, help='whether to use brownian motion')
 
 # '''file saving arguments'''
 # parser.add_argument('--save_path', type=str, default='_Experiments/certified_robustness/records')
@@ -98,27 +112,35 @@ class Diffusion():
         output = self.forward(x_in)
 
         return output
-
+@torch.no_grad()
 def example():
 
     # Diffusion Model:
-    DiffWave_Denoiser = create_diffwave_model(model_path=args.defender_path, config_path=args.config, reverse_timestep=5)
-    DiffWave_Denoiser.eval().cuda()
+    # DiffWave_Denoiser = create_diffwave_model(model_path=args.defender_path, config_path=args.config, reverse_timestep=5)
+    # DiffWave_Denoiser.eval().cuda()
+    # predict = Diffusion(classifier=Classifier, denoiser=DiffWave_Denoiser)
     
     # # Classifier:
     model_path = r'C:\Users\kyhne\Downloads\deepspeech-0.9.3-models.pbmm'
     scorer_path = r'C:\Users\kyhne\Downloads\deepspeech-0.9.3-models.scorer'
     Classifier = DeepSpeechTranscriber(model_path, scorer_path)
     
-    audio_file = r'C:\Users\kyhne\OneDrive - Aalborg Universitet\Uni\7. semester\P7 - Informationsbehandling i teknologiske systemer\AudioPure-master\adversarial_dataset-A\Adversarial-Examples\medium-signals\adv-short-target\adv-medium2short-000957.wav'
-    # audio_file = r'C:\Users\kyhne\OneDrive - Aalborg Universitet\Uni\7. semester\P7 - Informationsbehandling i teknologiske systemer\AudioPure-master\adversarial_dataset-A\Adversarial-Examples\medium-signals\Original-examples\sample-000957.wav'
+    Defender = RevDiffWave(args)
+    defense_type = 'wave'
+    AS_MODEL = AcousticSystem(classifier=Classifier, defender=Defender, defense_type=defense_type)
+    AS_MODEL.eval().cuda()
     
-    predict = Diffusion(classifier=Classifier, denoiser=DiffWave_Denoiser)
+    # audio_file = r'C:\Users\kyhne\OneDrive - Aalborg Universitet\Uni\7. semester\P7 - Informationsbehandling i teknologiske systemer\AudioPure-master\adversarial_dataset-A\Adversarial-Examples\medium-signals\adv-short-target\adv-medium2short-000957.wav'
+    audio_file = r'C:\Users\kyhne\Downloads\output_10_500_20\output_10_500_20\result\right\yes\1b63157b_nohash_3.wav'
+    
     
     waveform, sample_rate = torchaudio.load(audio_file)
     waveform = torch.unsqueeze(waveform, 1)
+    AS_MODEL.defender.rev_vpsde.audio_shape = (1, waveform.shape[-1])
     
-    predicted = predict.diffuse(x=waveform)
+
+    predicted = AS_MODEL.defender(waveform)
+    # print(predicted)
     
     output_file_path = r'C:\Users\kyhne\Downloads\output_audio.wav'
     
@@ -129,7 +151,7 @@ def example():
     print(transcription1)
     transcription2 = Classifier.transcribe_audio_file(output_file_path)
     print(transcription2)
-
+# example()
 
 class Experiment():
     
@@ -176,23 +198,29 @@ class Experiment():
         # Sort
         fs = np.sort(fs) # Numpy uses a faster sorting algorithm
         
-        # Diffusion Model:
-        DiffWave_Denoiser = create_diffwave_model(model_path=args.defender_path, config_path=args.config, reverse_timestep=5)
-        DiffWave_Denoiser.eval().cuda()
-        
         # Classifier:
         model_path = r'C:\Users\kyhne\Downloads\deepspeech-0.9.3-models.pbmm'
         scorer_path = r'C:\Users\kyhne\Downloads\deepspeech-0.9.3-models.scorer'
         Classifier = DeepSpeechTranscriber(model_path, scorer_path)
         
-        # Model (only if Diffusion model defence is used!!!)
+        # Diffusion model        
+        Defender = RevDiffWave(args)
+        defense_type = 'wave'
+        AS_MODEL = AcousticSystem(classifier=Classifier, defender=Defender, defense_type=defense_type)
+        AS_MODEL.eval().cuda()
+
+        # Diffusion Model:
+        DiffWave_Denoiser = create_diffwave_model(model_path=args.defender_path, config_path=args.config, reverse_timestep=5)
+        DiffWave_Denoiser.eval().cuda()
+        
+        # # Model (only if Diffusion model defence is used!!!)
         predict = Diffusion(classifier=Classifier, denoiser=DiffWave_Denoiser)
         
         # Error label rate
         cer = CharErrorRate()
         output_file_path = r'C:\Users\kyhne\Downloads\output_audio.wav'
         n = 0
-        index = 0
+        index = 0   
         original = []
         attacked = []
         for i in fs:
@@ -200,8 +228,13 @@ class Experiment():
             waveform, sample_rate = torchaudio.load(audio_file)
 
             waveform = torch.unsqueeze(waveform, 1)
-            
-            predicted = predict.diffuse(x=waveform)
+            AS_MODEL.defender.rev_vpsde.audio_shape = (1, waveform.shape[-1])
+            # sigma = 0.001
+            # delta = torch.normal(0,sigma,size=waveform.shape).cuda()
+            # waveform = waveform.cuda() + delta
+            # predicted = predict.diffuse(x=waveform)
+            predicted = AS_MODEL.defender(waveform)
+
             # Save the PyTorch tensor as a WAV file
             torchaudio.save(output_file_path, predicted.detach().cpu().view(1, predicted.size(dim=2)), sample_rate, encoding='PCM_S', bits_per_sample=16)
             
@@ -221,9 +254,9 @@ class Experiment():
     
 exp = Experiment()
 
-exp.dataloader(r'C:\Users\kyhne\OneDrive - Aalborg Universitet\Uni\7. semester\P7 - Informationsbehandling i teknologiske systemer\AudioPure-master\adversarial_dataset-A\Adversarial-Examples\long-signals\list-long.csv')
+exp.dataloader(r'C:\Users\kyhne\OneDrive - Aalborg Universitet\Uni\7. semester\P7 - Informationsbehandling i teknologiske systemer\AudioPure-master\adversarial_dataset-A\Adversarial-Examples\medium-signals\list-medium.csv')
 
-res = exp.run(r'C:\Users\kyhne\OneDrive - Aalborg Universitet\Uni\7. semester\P7 - Informationsbehandling i teknologiske systemer\AudioPure-master\adversarial_dataset-A\Adversarial-Examples\long-signals\adv-long-target')
+res = exp.run(r'C:\Users\kyhne\OneDrive - Aalborg Universitet\Uni\7. semester\P7 - Informationsbehandling i teknologiske systemer\AudioPure-master\adversarial_dataset-A\Adversarial-Examples\medium-signals\adv-long-target')
 
 print(res)
 
