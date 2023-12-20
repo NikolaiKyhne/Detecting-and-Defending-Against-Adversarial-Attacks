@@ -10,7 +10,7 @@ When running the code use DeepSpeech 0.9.3, Tensorflow-gpu 1.15.4, PyTorch 1.13.
 For the pre-trained diffusion model DiffWave the officially provided checkpoints is used and linked here: https://github.com/philsyn/DiffWave-unconditional/tree/master/exp/ch256_T200_betaT0.02/logs/checkpoint?fbclid=IwAR3MX0AMM7h8e-FIyF1EXJhVPI64AJAej61FVL_CicVCNABxJKx1MxRKUN8  
 Examples:  
 
-Clean  
+*Clean*  
 n = 0: https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/assets/70662482/68fe9637-e795-4d01-83e4-22acd0045da0  
 
 n = 1: https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/assets/70662482/e34ebcb0-4435-460a-b7e4-4a8c75ea52a0  
