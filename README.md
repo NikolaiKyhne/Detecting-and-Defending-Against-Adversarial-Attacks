@@ -1,7 +1,5 @@
 # Detecting and Defending Against Adversarial Attacks
-7th semester project. This is an extension of previous research extending defence against adversarial attacks via diffusion models to sentences as well as a novel approach in regards to detecting adversarial attacks. The first draft of our article is available in this repository.   
-
-For the black-box attack and keyword spotter used in this project see https://github.com/nesl/adversarial_audio  
+This is an extension of previous research extending defence against adversarial attacks via diffusion models to sentences as well as a novel approach in regards to detecting adversarial attacks. The first draft of our paper is available in this repository.   
 
 For the white-box attack used in this project see https://github.com/carlini/audio_adversarial_examples  
 
