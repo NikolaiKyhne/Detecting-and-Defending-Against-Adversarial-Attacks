@@ -3,19 +3,19 @@ Please note that this repository also contains some code originally from AudioPu
 # Detecting and Defending Against Adversarial Attacks
 This the official implementation of the pape: Detecting and Defending against Adversarial Attacks on Automatic Speech Recognition via DIffusion Models. We defend against adversarial attacks on sentence and propose a novel approach for detecting adversarial attacks. The first draft of our paper is available on arXiv: "link to be added"  
 
-For the white-box attack (C&W) used in this project see https://github.com/carlini/audio_adversarial_examples  
+For the white-box attack (C&W) used in this project see [here](https://github.com/carlini/audio_adversarial_examples ) 
 
 When running the code use DeepSpeech 0.9.3, Tensorflow-gpu 1.15.4 (technically not necessary), PyTorch 1.13.1+cu116, CUDA 10.1 and cuDNN 7.6.5.  
 
-For the pre-trained diffusion model DiffWave, the officially provided checkpoints is used and linked here: https://github.com/philsyn/DiffWave-unconditional/tree/master/exp/ch256_T200_betaT0.02/logs/checkpoint?fbclid=IwAR3MX0AMM7h8e-FIyF1EXJhVPI64AJAej61FVL_CicVCNABxJKx1MxRKUN8  
+For the pre-trained diffusion model DiffWave, the officially provided checkpoints is used and linked [here](https://github.com/philsyn/DiffWave-unconditional/tree/master/exp/ch256_T200_betaT0.02/logs/checkpoint?fbclid=IwAR3MX0AMM7h8e-FIyF1EXJhVPI64AJAej61FVL_CicVCNABxJKx1MxRKUN8)  
 
-**For guide on how to reproduce results, see ["guide.docx"](https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/blob/main/Guide.md)**
+**For guide on how to reproduce results, see [guide.docx](https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/blob/main/Guide.md)**
 
 
 Examples:  
 
 **Clean:**  
-n = 0: https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/assets/70662482/68fe9637-e795-4d01-83e4-22acd0045da0  
+[n = 0](https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/assets/70662482/68fe9637-e795-4d01-83e4-22acd0045da0)
 
 n = 1: https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/assets/70662482/e34ebcb0-4435-460a-b7e4-4a8c75ea52a0  
 
