@@ -9,7 +9,7 @@ When running the code use DeepSpeech 0.9.3, Tensorflow-gpu 1.15.4 (technically n
 
 For the pre-trained diffusion model DiffWave, the officially provided checkpoints is used and linked here: https://github.com/philsyn/DiffWave-unconditional/tree/master/exp/ch256_T200_betaT0.02/logs/checkpoint?fbclid=IwAR3MX0AMM7h8e-FIyF1EXJhVPI64AJAej61FVL_CicVCNABxJKx1MxRKUN8  
 
-**For guide on how to reproduce results, see "guide.docx"**
+**For guide on how to reproduce results, see ["guide.docx"](https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/blob/main/Guide.md)**
 
 
 Examples:  
