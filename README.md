@@ -1,6 +1,8 @@
-Please note that this repository also contains some code originally from AudioPure. To replicate their results, please see: https://github.com/cychomatica/AudioPure
 
-# Detecting and Defending Against Adversarial Attacks
+# Detecting and Defending against Adversarial Attacks on Automatic Speech Recognition via Diffusion Models
+
+![Alt text](https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/blob/main/system.png)
+
 This the official implementation of the paper: Detecting and Defending against Adversarial Attacks on Automatic Speech Recognition via Diffusion Models. We defend against adversarial attacks on sentence and propose a novel approach for detecting adversarial attacks. The first draft of our paper is available on arXiv: "link to be added"  
 
 For the white-box attack (C&W) used in this project see [here](https://github.com/carlini/audio_adversarial_examples ) 
@@ -11,6 +13,7 @@ For the pre-trained diffusion model DiffWave, the officially provided checkpoint
 
 **For guide on how to reproduce results, see [guide.docx](https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/blob/main/Guide.md)**
 
+Please note that this repository also contains some code originally from AudioPure. To replicate their results, please see: https://github.com/cychomatica/AudioPure
 
 Examples:  
 
