@@ -13,8 +13,28 @@ For the pre-trained diffusion model DiffWave, the officially provided checkpoint
 
 **For guide on how to reproduce results, see [guide.docx](https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/blob/main/Guide.md)**
 
-Please note that this repository also contains some code originally from AudioPure. To replicate their results, please see: https://github.com/cychomatica/AudioPure
-
+If you find this work useful, please consider citing our paper:
+```
+@misc{kuehne2024detectinganddefending,
+      title={Detecting and Defending Against Adversarial Attacks on Automatic Speech Recognition via Diffusion Models}, 
+      author={Nikolai L. Kühne and Astrid H. F. Kitchen and Marie S. Jensen and Mikkel S. L. Brøndt and Martin Gonzalez and Christophe Biscio and Zheng-Hua Tan},
+      year={2024},
+      eprint={2409.07936},
+      archivePrefix={arXiv},
+      primaryClass={eess.AS},
+      url={https://arxiv.org/abs/2409.07936}, 
+}
+```
+Please note that this repository also contains some code originally from AudioPure. To replicate their results, please see: https://github.com/cychomatica/AudioPure. Additionally, we would like to thank the authors of AudioPure for their work and codebase. So, please consider citing them as well
+```
+@inproceedings{wu2023defending,
+  title={Defending against Adversarial Audio via Diffusion Model},
+  author={Wu, Shutong and Wang, Jiongxiao and Ping, Wei and Nie, Weili and Xiao, Chaowei},
+  booktitle={The Eleventh International Conference on Learning Representations},
+  year={2023},
+  url={https://openreview.net/pdf?id=5-Df3tljit7}
+}
+```
 Examples:  
 
 **Clean:**  
@@ -48,11 +68,3 @@ Examples:
 [n = 3]( https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/assets/70662482/eda6f5fe-523b-4089-9ea8-c3ae7344cc75)
 
 [n = 5](https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/assets/70662482/99d059cf-5321-47ea-8d14-12e8bc2c17f3)
-
-
-
-
-
-
-
-
