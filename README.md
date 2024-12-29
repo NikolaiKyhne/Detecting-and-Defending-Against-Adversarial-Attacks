@@ -1,5 +1,5 @@
 
-# Detecting and Defending against Adversarial Attacks on Automatic Speech Recognition via Diffusion Models
+# Detecting and Defending against Adversarial Attacks on Automatic Speech Recognition via Diffusion Models ((Accepted to ICASSP 2025))
 
 ![Alt text](https://github.com/Kyhne/Detecting-and-Defending-Against-Adversarial-Attacks/blob/main/system.png)
 
