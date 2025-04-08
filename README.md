@@ -15,14 +15,13 @@ For the pre-trained diffusion model DiffWave, the officially provided checkpoint
 
 If you find this work useful, please consider citing our paper:
 ```
-@misc{kuehne2024detectinganddefending,
-      title={Detecting and Defending Against Adversarial Attacks on Automatic Speech Recognition via Diffusion Models}, 
-      author={Nikolai L. Kühne and Astrid H. F. Kitchen and Marie S. Jensen and Mikkel S. L. Brøndt and Martin Gonzalez and Christophe Biscio and Zheng-Hua Tan},
-      year={2024},
-      eprint={2409.07936},
-      archivePrefix={arXiv},
-      primaryClass={eess.AS},
-      url={https://arxiv.org/abs/2409.07936}, 
+@inproceedings{kuhne2025detecting,
+  title={Detecting and Defending Against Adversarial Attacks on Automatic Speech Recognition via Diffusion Models},
+  author={K{\"u}hne, Nikolai L and Kitchena, Astrid HF and Jensen, Marie S and Br{\o}ndt, Mikkel SL and Gonzalez, Martin and Biscio, Christophe and Tan, Zheng-Hua},
+  booktitle={ICASSP 2025-2025 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages={1--5},
+  year={2025},
+  organization={IEEE}
 }
 ```
 Please note that this repository also contains some code originally from AudioPure. To replicate their results, please see: https://github.com/cychomatica/AudioPure. Additionally, we would like to thank the authors of AudioPure for their work and codebase. So, please consider citing them as well
